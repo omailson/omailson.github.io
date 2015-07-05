@@ -2,6 +2,7 @@
 title: "Simple pong game using HTML5 and canvas"
 date: 2013-02-07 19:03:28
 category: web
+syntaxhighlighter: true
 ---
 <p>
 I've spend some time working on a simple game using canvas 2d. I had some problems while doing this (some hard to find) and I thought it would be great to share my experiences on this work.
@@ -33,24 +34,26 @@ The <tt>Game</tt> class* is the actual game. It controls each player movement, l
 *Although JavaScript doesn't actually have classes I'll use the term for a better understanding.
 </p>
 
+<!--more-->
+
 <h2>Setting the basics</h2>
 <p>
 First we need to create a HTML file with a <a href="http://www.whatwg.org/specs/web-apps/current-work/multipage/the-canvas-element.html" target="_blank">canvas</a> element and source the JavaScript.
 </p>
 
-[code language="html"]
-<!DOCTYPE HTML>
-<html>
-    <head>
-        <title>Pong</title>
-        <script defer src="pong.js"></script>
-        <link rel="stylesheet" href="style.css" />
-    </head>
-    <body>
-        <canvas id="game" width="512" height="256"></canvas>
-    </body>
-</html>
-[/code]
+<pre class="brush: html">
+&lt;!DOCTYPE HTML>
+&lt;html>
+    &lt;head>
+        &lt;title>Pong&lt;/title>
+        &lt;script defer src="pong.js">&lt;/script>
+        &lt;link rel="stylesheet" href="style.css" />
+    &lt;/head>
+    &lt;body>
+        &lt;canvas id="game" width="512" height="256">&lt;/canvas>
+    &lt;/body>
+&lt;/html>
+</pre>
 
 <p>
 There's a HTML5 page (you can tell by the first line) with a 512x256 canvas element. The <tt>defer</tt> keyword in the <tt>script</tt> tag tells the browser to only execute the script after all elements are loaded. This way we avoid referring to a canvas element that weren't created yet.
@@ -60,13 +63,11 @@ There's a HTML5 page (you can tell by the first line) with a 512x256 canvas elem
 The background is painted using CSS instead of calling a canvas draw function to do the job. The reason is that painting on canvas is quite expensive and the browser can do some performance tuning on CSS. So painting a background onto a canvas should be avoided.
 </p>
 
-[code lang="css"]
+<pre class="brush: css">
 #game {
     background-color: #353535;
 }
-[/code]
-
-<!--more-->
+</pre>
 
 <h2>Game mockup</h2>
 
@@ -74,7 +75,7 @@ The background is painted using CSS instead of calling a canvas draw function to
 As we discussed before there's a <tt>Game</tt> which has two main functions: <tt>update()</tt> and <tt>draw()</tt>.
 </p>
 
-[code lang="js"]
+<pre class="brush: js">
 function Game() {
     var canvas = document.getElementById("game");
     this.width = canvas.width;
@@ -82,7 +83,7 @@ function Game() {
     this.context = canvas.getContext("2d");
     this.context.fillStyle = "white";
 }
-[/code]
+</pre>
 
 <p>
 In the constructor we get the canvas element and a 2d context out of it. We don't actually need to save the canvas element itself because we will rarely use it and we can always get it back from the context using <tt>context.canvas</tt>.
@@ -92,7 +93,7 @@ In the constructor we get the canvas element and a 2d context out of it. We don'
 The other <tt>Game</tt> methods are implemented below:
 </p>
 
-[code lang="js"]
+<pre class="brush: js">
 Game.prototype.draw = function()
 {
     this.context.clearRect(0, 0, this.width, this.height);
@@ -104,7 +105,7 @@ Game.prototype.update = function()
     if (this.paused)
         return;
 };
-[/code]
+</pre>
 
 <h3>Structuring the main loop</h3>
 
@@ -112,7 +113,7 @@ Game.prototype.update = function()
 Our game main loop is a function which is called every 33ms. That function has a simple job: call the game <tt>update()</tt> and <tt>draw()</tt> functions. To call a function continuously we could use either <a href="https://developer.mozilla.org/en-US/docs/DOM/window.setInterval">setInterval</a>, <a href="https://developer.mozilla.org/en-US/docs/DOM/window.setTimeout">setTimeout</a> or the new <a href="http://paulirish.com/2011/requestanimationframe-for-smart-animating/">requestAnimationFrame</a>.
 </p>
 
-[code lang="js"]
+<pre class="brush: js">
 // Initialize our game instance
 var game = new Game();
 
@@ -125,13 +126,15 @@ function MainLoop() {
 
 // Start the game execution
 MainLoop();
-[/code]
+</pre>
 
 <p>
 For now our game looks like this. A gray rectangle with a white net in the middle.
 </p>
 
+<p>
 <iframe style="width: 100%; height: 350px" src="http://jsfiddle.net/mailson/kt3Md/embedded/result/" allowfullscreen="allowfullscreen" frameborder="0"></iframe>
+</p>
 
 <h2>The players</h2>
 
@@ -139,7 +142,7 @@ For now our game looks like this. A gray rectangle with a white net in the middl
 There are two players here, each on a side of the field. To represent a player we create the <tt>Paddle</tt> class to store its position, score and size.
 </p>
 
-[code lang="js"]
+<pre class="brush: js">
 function Paddle(x,y) {
     this.x = x;
     this.y = y;
@@ -147,24 +150,24 @@ function Paddle(x,y) {
     this.height = 28;
     this.score = 0;
 }
-[/code]
+</pre>
 
 <p>
 We better create a <tt>draw</tt> function for the player. Thereby <tt>Game</tt> don't need to worry on how the player is drawn.
 </p>
 
-[code lang="js"]
+<pre class="brush: js">
 Paddle.prototype.draw = function(p)
 {
     p.fillRect(this.x, this.y, this.width, this.height);
 };
-[/code]
+</pre>
 
 <p>
 Finally we put the players on each side of the canvas. The 5 pixels margin is purely aesthetic.
 </p>
 
-[code lang="js" highlight="8,9,10,11"]
+<pre class="brush: js; highlight: [8,9,10,11]">
 function Game() {
     var canvas = document.getElementById("game");
     this.width = canvas.width;
@@ -177,9 +180,9 @@ function Game() {
     this.p2 = new Paddle(this.width - 5 - 2, 0);
     this.p2.y = this.height/2 - this.p2.height/2;
 }
-[/code]
+</pre>
 
-[code lang="js" highlight="6,7"]
+<pre class="brush: js; highlight: [6,7]">
 Game.prototype.draw = function()
 {
     this.context.clearRect(0, 0, this.width, this.height);
@@ -188,13 +191,15 @@ Game.prototype.draw = function()
     this.p1.draw(this.context);
     this.p2.draw(this.context);
 };
-[/code]
+</pre>
 
 <p>
 And here's how it's looking like:
 </p>
 
+<p>
 <iframe style="width: 100%; height: 350px" src="http://jsfiddle.net/mailson/kt3Md/1/embedded/result/" allowfullscreen="allowfullscreen" frameborder="0"></iframe>
+</p>
 
 <h2>Keyboard input</h2>
 
@@ -226,7 +231,7 @@ See another example using the latter approach: <a href="http://jsfiddle.net/mail
 To get our jobs easily done I've created a <tt>KeyListener</tt> class to handle this. It just listens to <tt>keydown</tt>/<tt>keyup</tt> events and keeps track of what keys are being pressed.
 </p>
 
-[code lang="js"]
+<pre class="brush: js">
 function KeyListener() {
     this.pressedKeys = [];
 
@@ -254,7 +259,7 @@ KeyListener.prototype.addKeyPressListener = function(keyCode, callback)
             callback(e);
     });
 };
-[/code]
+</pre>
 
 <h3>A word about the bind() function</h3>
 
@@ -276,7 +281,7 @@ Although useful the <tt>bind()</tt> function is quite recent and won't work in I
 To move the paddles we simply create a new instance of <tt>KeyListener</tt> and check, inside the game update, if our respective keys are being pressed.
 </p>
 
-[code lang="js" highlight="7,21-31" gutter="true"]
+<pre class="brush: js; highlight: [7,21,22,23,24,25,26,27,28,29,30,31]; gutter: true">
 function Game() {
     var canvas = document.getElementById("game");
     this.width = canvas.width;
@@ -309,12 +314,14 @@ Game.prototype.update = function()
         this.p2.y = Math.max(0, this.p2.y - 4);
     }
 };
-[/code]
+</pre>
 
 <p>
 Our progress so far:
 </p>
+<p>
 <iframe style="width: 100%; height: 350px" src="http://jsfiddle.net/mailson/kt3Md/2/embedded/result/" allowfullscreen="allowfullscreen" frameborder="0"></iframe>
+</p>
 
 <h2>The ball</h2>
 
@@ -326,7 +333,7 @@ The ball element is not controlled by the user. Instead, it moves around the vie
 For now we're going to implement a very basic collision detection for the ball.
 </p>
 
-[code lang="js"]
+<pre class="brush: js">
 function Ball() {
     this.x = 0;
     this.y = 0;
@@ -346,13 +353,13 @@ Ball.prototype.draw = function(p)
 {
     p.fillRect(this.x, this.y, this.width, this.height);
 };
-[/code]
+</pre>
 
 <p>
 This is a simple class which stores the ball's attributes. The position is updated on each <tt>update()</tt> call.
 </p>
 
-[code lang="js" highlight="30"]
+<pre class="brush: js; highlight: 30">
 function Game() {
     // [...]
     this.ball = new Ball();
@@ -387,13 +394,15 @@ Game.prototype.draw = function()
     this.p1.draw(this.context);
     this.p2.draw(this.context);
 };
-[/code]
+</pre>
 
 <p>
 It's starting to look like a game, isn't it?
 </p>
 
+<p>
 <iframe style="width: 100%; height: 350px" src="http://jsfiddle.net/mailson/kt3Md/3/embedded/result/" allowfullscreen="allowfullscreen" frameborder="0"></iframe>
+</p>
 
 <h3>Improving the collision detection</h3>
 
@@ -429,7 +438,7 @@ To avoid this tunneling effect, we need to "guess" where the ball was at the ins
 I won't spend much time talking about the collision detection. The following code explains for itself.
 </p>
 
-[code lang="js" highlight="0,21-52"]
+<pre class="brush: js; highlight: [0,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52]">
 Game.prototype.update = function()
 {
     if (this.paused)
@@ -451,12 +460,12 @@ Game.prototype.update = function()
     }
 
     if (this.ball.vx > 0) {
-        if (this.p2.x <= this.ball.x + this.ball.width &&
+        if (this.p2.x &lt;= this.ball.x + this.ball.width &amp;&amp;
                 this.p2.x > this.ball.x - this.ball.vx + this.ball.width) {
             var collisionDiff = this.ball.x + this.ball.width - this.p2.x;
             var k = collisionDiff/this.ball.vx;
             var y = this.ball.vy*k + (this.ball.y - this.ball.vy);
-            if (y >= this.p2.y && y + this.ball.height <= this.p2.y + this.p2.height) {
+            if (y >= this.p2.y &amp;&amp; y + this.ball.height &lt;= this.p2.y + this.p2.height) {
                 // collides with right paddle
                 this.ball.x = this.p2.x - this.ball.width;
                 this.ball.y = Math.floor(this.ball.y - this.ball.vy + this.ball.vy*k);
@@ -468,7 +477,7 @@ Game.prototype.update = function()
             var collisionDiff = this.p1.x + this.p1.width - this.ball.x;
             var k = collisionDiff/-this.ball.vx;
             var y = this.ball.vy*k + (this.ball.y - this.ball.vy);
-            if (y >= this.p1.y && y + this.ball.height <= this.p1.y + this.p1.height) {
+            if (y >= this.p1.y &amp;&amp; y + this.ball.height &lt;= this.p1.y + this.p1.height) {
                 // collides with the left paddle
                 this.ball.x = this.p1.x + this.p1.width;
                 this.ball.y = Math.floor(this.ball.y - this.ball.vy + this.ball.vy*k);
@@ -478,17 +487,19 @@ Game.prototype.update = function()
     }
 
     // Top and bottom collision
-    if ((this.ball.vy < 0 && this.ball.y < 0) ||
-            (this.ball.vy > 0 && this.ball.y + this.ball.height > this.height)) {
+    if ((this.ball.vy &lt; 0 &amp;&amp; this.ball.y &lt; 0) ||
+            (this.ball.vy > 0 &amp;&amp; this.ball.y + this.ball.height > this.height)) {
         this.ball.vy = -this.ball.vy;
     }
 };
-[/code]
+</pre>
 
 <p>
 Now we have a game:
 </p>
+<p>
 <iframe style="width: 100%; height: 350px" src="http://jsfiddle.net/mailson/kt3Md/4/embedded/result/" allowfullscreen="allowfullscreen" frameborder="0"></iframe>
+</p>
 
 <h2>Counting the score</h2>
 
@@ -496,7 +507,7 @@ Now we have a game:
 The goal in this game is very simple: a player needs to make the ball cross the wall on the opposite side.
 </p>
 
-[code lang="js"]
+<pre class="brush: js">
 Game.prototype.update = function()
 {
     // [...]
@@ -522,13 +533,13 @@ Game.prototype.score = function(p)
     if (player == 1)
         this.ball.vx *= -1;
 };
-[/code]
+</pre>
 
 <p>
 We also need a display to show the score
 </p>
 
-[code lang="js"]
+<pre class="brush: js">
 function Display(x, y) {
     this.x = x;
     this.y = y;
@@ -539,9 +550,9 @@ Display.prototype.draw = function(p)
 {
     p.fillText(this.value, this.x, this.y);
 };
-[/code]
+</pre>
 
-[code lang="js" highlight="6,9,25,26"]
+<pre class="brush: js; highlight: [6,9,25,26]">
 function Game() {
     // [...]
 
@@ -570,9 +581,11 @@ Game.prototype.update = function()
     this.display2.value = this.p2.score;
     // [...]
 };
-[/code]
+</pre>
 
+<p>
 <iframe style="width: 100%; height: 350px" src="http://jsfiddle.net/mailson/kt3Md/5/embedded/result/" allowfullscreen="allowfullscreen" frameborder="0"></iframe>
+</p>
 
 <h2>Using touch events</h2>
 
@@ -592,7 +605,7 @@ I noticed that in my browser I always got a <em>new</em> <tt>Touch</tt> object o
 Given that I came out with a <tt>TouchListener</tt>
 </p>
 
-[code lang="js"]
+<pre class="brush: js">
 function TouchListener(element) {
     this.touches = [];
     this.touchMoveListener = function(touch) {};
@@ -624,7 +637,7 @@ function TouchListener(element) {
         }
     }).bind(this));
 }
-[/code]
+</pre>
 
 <p>
 This helper class stores each touch event in a hash table using the <tt>Touch</tt> <a href="https://developer.mozilla.org/en-US/docs/DOM/Touch.identifier">identifier</a> as a key. The offset of the touch movement is calculated comparing the current touch position with the previously stored one. The result is then passed as an argument of a callback.

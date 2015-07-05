@@ -1,0 +1,18 @@
+---
+title: "Okular summer of code"
+date: 2012-04-26 19:30:35
+category: Planet KDE
+tags: [dev, gsoc, kde, planet kde]
+---
+Hello everyone, my name is <a href="http://blog.mailson.org/about/" title="About me" target="_blank">Mailson</a> and I recently got my proposal to <a href="http://www.google-melange.com/gsoc/homepage/google/gsoc2012" target="_blank">Google Summer of Code</a> accepted.
+
+<p style="background-color: #bde8f4; clear: both; text-align: center; height: 160px"><img style="margin: 0" title="gsoclogo" src="http://blog.mailson.org/wp-content/uploads/2012/04/gsoclogo.png" alt="" width="316" height="160" /></p>
+
+I'm obviously very happy that I'll spend this <del datetime="2012-04-26T21:04:13+00:00" title="It's actually winter in Brazil">summer</del> winter working on a new feature to Okular. I already did a <a href="https://bugs.kde.org/show_bug.cgi?id=157198" title="Bug 157198 - Remember position on the page in bookmark" target="_blank">small contribution</a> to the project about a month ago (in fact it was my first contribution to KDE and I felt so awesome after seeing my name on the commit list).
+
+<h2>So, what's the deal?</h2>
+Okular currently renders the entire page of a document at once and stores the full rasterized image into memory. This can lead to a lot of memory consumption at higher zoom levels therefore you can only zoom up to 400%.
+
+What I'll do is a tile-based approach to page rendering so only the region of interest will be rendered and saved into memory. Also I have to make sure old tiles will be evicted from memory and new tiles will be rendered when the viewport moves (or the zoom factor changes).
+
+If you're curious about detailed information of my project, feel free to read <a href="http://www.google-melange.com/gsoc/proposal/review/google/gsoc2012/mailson/10002" target="_blank">my proposal</a> or ask any questions in the comments section below. Certainly this will change during the coding period so new ideas are always welcome.

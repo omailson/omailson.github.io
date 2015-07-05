@@ -2,7 +2,17 @@
 layout: default
 ---
 
-<section class="quote">
-	<p>And here stands a blog
-		<span class="author">MENEZES, Mailson</span></p>
+{% for post in site.posts %}
+<section>
+	<div class="eight columns">
+		<h4 class="post_title"><a href="{{ post.url | prepend: site.baseurl }}">{{ post.title }}</a></h4>
+		<a href="{{ post.url | prepend: site.baseurl | prepend: site.url }}"><span class="post_date">{{ post.date | date: "%b %-d, %Y" }}</span></a>
+
+		{{ post.content }}
+
+		<a href="single-post.html"><button class="float_right">READ MORE</button></a>
+
+	</div>
+	<br class="clear" />
 </section>
+{% endfor %}

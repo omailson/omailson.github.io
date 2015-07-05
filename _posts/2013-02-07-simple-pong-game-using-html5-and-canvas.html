@@ -3,24 +3,40 @@ title: "Simple pong game using HTML5 and canvas"
 date: 2013-02-07 19:03:28
 category: web
 ---
+<p>
 I've spend some time working on a simple game using canvas 2d. I had some problems while doing this (some hard to find) and I thought it would be great to share my experiences on this work.
+</p>
 
+<p>
 This is a simple version of the well know game <a href="http://en.wikipedia.org/wiki/Pong">pong</a>. Throughout this article I'll give some tips on how I treated the user's input (both keyboard and touch events), a word about collision detection and also troubleshooting some issues that came to me.
+</p>
 
+<p>
 According to <a href="http://en.wikipedia.org/wiki/Pong#Gameplay">wikipedia</a>:
+</p>
 <blockquote>Pong is a two-dimensional sports game that simulates table tennis. The player controls an in-game paddle by moving it vertically across the left side of the screen, and can compete against either a computer controlled opponent or another player controlling a second paddle on the opposing side. Players use the paddles to hit a ball back and forth. The aim is for a player to earn more points than the opponent; points are earned when one fails to return the ball to the other.</blockquote>
 
 <h2>Introduction</h2>
+<p>
 I've used a <a href="https://developer.mozilla.org/en-US/docs/JavaScript/Introduction_to_Object-Oriented_JavaScript" target="_blank">basic object-oriented approach</a> on top of JavaScript found on Mozilla developer network. In fact, that's <a href="http://ejohn.org/blog/simple-javascript-inheritance/" target="_blank">not the only way</a> of using object-oriented programming in JavaScript.
+</p>
 
+<p>
 In the game we have a <tt>MainLoop()</tt> function which calls the game update and draw functions (in that order). The main loop is repeatedly called through a <tt>setTimeout</tt>.
+</p>
 
+<p>
 The <tt>Game</tt> class* is the actual game. It controls each player movement, listens to user input and also call the draw methods.
+</p>
 
+<p>
 *Although JavaScript doesn't actually have classes I'll use the term for a better understanding.
+</p>
 
 <h2>Setting the basics</h2>
+<p>
 First we need to create a HTML file with a <a href="http://www.whatwg.org/specs/web-apps/current-work/multipage/the-canvas-element.html" target="_blank">canvas</a> element and source the JavaScript.
+</p>
 
 [code language="html"]
 <!DOCTYPE HTML>
@@ -36,9 +52,13 @@ First we need to create a HTML file with a <a href="http://www.whatwg.org/specs/
 </html>
 [/code]
 
+<p>
 There's a HTML5 page (you can tell by the first line) with a 512x256 canvas element. The <tt>defer</tt> keyword in the <tt>script</tt> tag tells the browser to only execute the script after all elements are loaded. This way we avoid referring to a canvas element that weren't created yet.
+</p>
 
+<p>
 The background is painted using CSS instead of calling a canvas draw function to do the job. The reason is that painting on canvas is quite expensive and the browser can do some performance tuning on CSS. So painting a background onto a canvas should be avoided.
+</p>
 
 [code lang="css"]
 #game {
@@ -50,7 +70,9 @@ The background is painted using CSS instead of calling a canvas draw function to
 
 <h2>Game mockup</h2>
 
+<p>
 As we discussed before there's a <tt>Game</tt> which has two main functions: <tt>update()</tt> and <tt>draw()</tt>.
+</p>
 
 [code lang="js"]
 function Game() {
@@ -62,9 +84,13 @@ function Game() {
 }
 [/code]
 
+<p>
 In the constructor we get the canvas element and a 2d context out of it. We don't actually need to save the canvas element itself because we will rarely use it and we can always get it back from the context using <tt>context.canvas</tt>.
+</p>
 
+<p>
 The other <tt>Game</tt> methods are implemented below:
+</p>
 
 [code lang="js"]
 Game.prototype.draw = function()
@@ -82,7 +108,9 @@ Game.prototype.update = function()
 
 <h3>Structuring the main loop</h3>
 
+<p>
 Our game main loop is a function which is called every 33ms. That function has a simple job: call the game <tt>update()</tt> and <tt>draw()</tt> functions. To call a function continuously we could use either <a href="https://developer.mozilla.org/en-US/docs/DOM/window.setInterval">setInterval</a>, <a href="https://developer.mozilla.org/en-US/docs/DOM/window.setTimeout">setTimeout</a> or the new <a href="http://paulirish.com/2011/requestanimationframe-for-smart-animating/">requestAnimationFrame</a>.
+</p>
 
 [code lang="js"]
 // Initialize our game instance
@@ -99,13 +127,17 @@ function MainLoop() {
 MainLoop();
 [/code]
 
+<p>
 For now our game looks like this. A gray rectangle with a white net in the middle.
+</p>
 
 <iframe style="width: 100%; height: 350px" src="http://jsfiddle.net/mailson/kt3Md/embedded/result/" allowfullscreen="allowfullscreen" frameborder="0"></iframe>
 
 <h2>The players</h2>
 
+<p>
 There are two players here, each on a side of the field. To represent a player we create the <tt>Paddle</tt> class to store its position, score and size.
+</p>
 
 [code lang="js"]
 function Paddle(x,y) {
@@ -117,7 +149,9 @@ function Paddle(x,y) {
 }
 [/code]
 
+<p>
 We better create a <tt>draw</tt> function for the player. Thereby <tt>Game</tt> don't need to worry on how the player is drawn.
+</p>
 
 [code lang="js"]
 Paddle.prototype.draw = function(p)
@@ -126,7 +160,9 @@ Paddle.prototype.draw = function(p)
 };
 [/code]
 
+<p>
 Finally we put the players on each side of the canvas. The 5 pixels margin is purely aesthetic.
+</p>
 
 [code lang="js" highlight="8,9,10,11"]
 function Game() {
@@ -154,25 +190,41 @@ Game.prototype.draw = function()
 };
 [/code]
 
+<p>
 And here's how it's looking like:
+</p>
 
 <iframe style="width: 100%; height: 350px" src="http://jsfiddle.net/mailson/kt3Md/1/embedded/result/" allowfullscreen="allowfullscreen" frameborder="0"></iframe>
 
 <h2>Keyboard input</h2>
 
+<p>
 The players only move vertically so we assign <tt>W</tt> and <tt>S</tt> to move the left player and <tt>UP</tt> and <tt>DOWN</tt> to the right one.
+</p>
 
+<p>
 For this purpose we should listen to the <tt>keydown</tt> event and every time it occurs we'll check the event's <tt>keyCode</tt> to execute the movement.
+</p>
 
+<p>
 If the user keeps holding a key, the new <tt>keydown</tt> events are made and new calls to the callback are executed. It should fit perfectly for a game. However only one key sends a <tt>keydown</tt> event at a time. Let the first player hold down the <tt>S</tt> key. When the second player starts holding the <tt>DOWN</tt> key we won't receive the <tt>keydown</tt> event for the first player anymore.
+</p>
 
+<p>
 In the following example, try to hold down 2 keys at the same time and see it for yourself: <a href="http://jsfiddle.net/mailson/TupBQ/" target="_blank">http://jsfiddle.net/mailson/TupBQ/</a>
+</p>
 
+<p>
 So how do you know the first player is pressing down the <tt>S</tt> key after the second player made its move? Well, although we may not receive the <tt>keydown</tt> anymore we should know the key is being pressed if we don't get a <tt>keyup</tt> event for that.
+</p>
 
+<p>
 See another example using the latter approach: <a href="http://jsfiddle.net/mailson/jreG6/" target="_blank">http://jsfiddle.net/mailson/jreG6/</a>
+</p>
 
+<p>
 To get our jobs easily done I've created a <tt>KeyListener</tt> class to handle this. It just listens to <tt>keydown</tt>/<tt>keyup</tt> events and keeps track of what keys are being pressed.
+</p>
 
 [code lang="js"]
 function KeyListener() {
@@ -206,15 +258,23 @@ KeyListener.prototype.addKeyPressListener = function(keyCode, callback)
 
 <h3>A word about the bind() function</h3>
 
+<p>
 When a event callback is called the <tt>this</tt> variable points to the element that triggered the event. Yet we need a reference to the <tt>KeyListener</tt> object in both <tt>keyup</tt> and <tt>keydown</tt> callbacks. To achieve that we use a <tt>bind()</tt> to tell the callback that <tt>this</tt> actually points to our <tt>KeyListener</tt> instance (this), not the event caller.
+</p>
 
+<p>
 For further information, please read the <a href="https://developer.mozilla.org/en-US/docs/DOM/element.addEventListener#The_value_of_this_within_the_handler" target="_blank">addEventListener documentation</a> on MDN.
+</p>
 
+<p>
 Although useful the <tt>bind()</tt> function is quite recent and won't work in Internet Explorer &lt;9 or Safari &lt;6. Fortunately someone has already came up with a <a href="http://webreflection.blogspot.de/2010/02/functionprototypebind.html">work around</a> for that.
+</p>
 
 <h3>Using KeyListener</h3>
 
+<p>
 To move the paddles we simply create a new instance of <tt>KeyListener</tt> and check, inside the game update, if our respective keys are being pressed.
+</p>
 
 [code lang="js" highlight="7,21-31" gutter="true"]
 function Game() {
@@ -251,14 +311,20 @@ Game.prototype.update = function()
 };
 [/code]
 
+<p>
 Our progress so far:
+</p>
 <iframe style="width: 100%; height: 350px" src="http://jsfiddle.net/mailson/kt3Md/2/embedded/result/" allowfullscreen="allowfullscreen" frameborder="0"></iframe>
 
 <h2>The ball</h2>
 
+<p>
 The ball element is not controlled by the user. Instead, it moves around the viewport with an X and Y velocity. When the ball hits a paddle, it changes to the opposite X direction but keeps the Y velocity. When the ball hits the top or bottom of the screen, it moves in the opposite Y direction while the X velocity remains the same. If it crosses the left or right side of the screen, the player of the opposite side scores.
+</p>
 
+<p>
 For now we're going to implement a very basic collision detection for the ball.
+</p>
 
 [code lang="js"]
 function Ball() {
@@ -282,7 +348,9 @@ Ball.prototype.draw = function(p)
 };
 [/code]
 
+<p>
 This is a simple class which stores the ball's attributes. The position is updated on each <tt>update()</tt> call.
+</p>
 
 [code lang="js" highlight="30"]
 function Game() {
@@ -321,27 +389,45 @@ Game.prototype.draw = function()
 };
 [/code]
 
+<p>
 It's starting to look like a game, isn't it?
+</p>
 
 <iframe style="width: 100%; height: 350px" src="http://jsfiddle.net/mailson/kt3Md/3/embedded/result/" allowfullscreen="allowfullscreen" frameborder="0"></iframe>
 
 <h3>Improving the collision detection</h3>
 
+<p>
 You probably noticed that the ball is not actually colliding with the paddles. We're not even checking where the paddle is on our collision detection algorithm.
+</p>
 
+<p>
 A simple solution would be checking on game's update if the ball intersects with either of the paddles, then change the X velocity accordingly.
+</p>
 
+<p>
 <a href="http://blog.mailson.org/wp-content/uploads/2012/11/intersect1.png"><img src="http://blog.mailson.org/wp-content/uploads/2012/11/intersect1.png" alt="" title="intersect1" width="520" height="390" class="aligncenter size-full wp-image-149" /></a>
+</p>
 
+<p>
 However this is not a safe check. The ball moves more than 1 pixel per loop and situations like the illustrated below often occurs.
+</p>
 
+<p>
 <a href="http://blog.mailson.org/wp-content/uploads/2012/11/collision2.png"><img src="http://blog.mailson.org/wp-content/uploads/2012/11/collision2.png" alt="" title="collision2" width="520" height="390" class="aligncenter size-full wp-image-151" /></a>
+</p>
 
+<p>
 To avoid this tunneling effect, we need to "guess" where the ball was at the instant of collision and translate the ball to that position.
+</p>
 
+<p>
 <a href="http://blog.mailson.org/wp-content/uploads/2012/11/collision3.png"><img src="http://blog.mailson.org/wp-content/uploads/2012/11/collision3.png" alt="" title="collision3" width="520" height="390" class="aligncenter size-full wp-image-152" /></a>
+</p>
 
+<p>
 I won't spend much time talking about the collision detection. The following code explains for itself.
+</p>
 
 [code lang="js" highlight="0,21-52"]
 Game.prototype.update = function()
@@ -399,12 +485,16 @@ Game.prototype.update = function()
 };
 [/code]
 
+<p>
 Now we have a game:
+</p>
 <iframe style="width: 100%; height: 350px" src="http://jsfiddle.net/mailson/kt3Md/4/embedded/result/" allowfullscreen="allowfullscreen" frameborder="0"></iframe>
 
 <h2>Counting the score</h2>
 
+<p>
 The goal in this game is very simple: a player needs to make the ball cross the wall on the opposite side.
+</p>
 
 [code lang="js"]
 Game.prototype.update = function()
@@ -434,7 +524,9 @@ Game.prototype.score = function(p)
 };
 [/code]
 
+<p>
 We also need a display to show the score
+</p>
 
 [code lang="js"]
 function Display(x, y) {
@@ -484,13 +576,21 @@ Game.prototype.update = function()
 
 <h2>Using touch events</h2>
 
+<p>
 In order to make it work on mobile devices we need to listen to touch events such as <a href="https://developer.mozilla.org/en-US/docs/Mozilla_event_reference/touchstart" target="_blank">touchstart</a>, <a href="https://developer.mozilla.org/en-US/docs/Mozilla_event_reference/touchend" target="_blank">touchend</a> or <a href="https://developer.mozilla.org/en-US/docs/Mozilla_event_reference/touchmove" target="_blank">touchmove</a>. Each of those events has a <tt>changedTouches</tt> attribute of type <a href="https://developer.mozilla.org/en-US/docs/DOM/TouchList" target="_blank">TouchList</a> which is a list of <a href="https://developer.mozilla.org/en-US/docs/DOM/Touch" target="_blank">Touch</a> objects.
+</p>
 
+<p>
 Please note that mouse clicks won't dispatch a touch event. Fortunately you can easily <a href="http://martinkool.com/post/24459554064/emulate-touch-events-in-chrome" target="_blank">simulate touch events in Chrome</a>.
+</p>
 
+<p>
 I noticed that in my browser I always got a <em>new</em> <tt>Touch</tt> object on each event call. However when I tested the game on my iPad, initially I couldn't make it work. I was storing the previous Touch object to compare to the new one and calculate a movement. After some troubleshooting I found out that the browser wasn't giving me a new Touch instance, instead it was just editing the attributes of the <tt>Touch</tt> reference I already got. So I couldn't just store the Touch object to compare with the next event, I had to actually store the values I wanted from it (<tt>clientX</tt> and <tt>clientY</tt>).
+</p>
 
+<p>
 Given that I came out with a <tt>TouchListener</tt>
+</p>
 
 [code lang="js"]
 function TouchListener(element) {
@@ -526,13 +626,19 @@ function TouchListener(element) {
 }
 [/code]
 
+<p>
 This helper class stores each touch event in a hash table using the <tt>Touch</tt> <a href="https://developer.mozilla.org/en-US/docs/DOM/Touch.identifier">identifier</a> as a key. The offset of the touch movement is calculated comparing the current touch position with the previously stored one. The result is then passed as an argument of a callback.
+</p>
 
 <h2>Conclusion</h2>
 
+<p>
 Making HTML5 games requires the use of some functionalities that are not fully implemented even on modern browsers. Also, since browsers development are happening really fast, a few months can make a huge difference in browsers versions. So if you plan to support a variety of platforms, you'll have to take some time to check if that awesome functionality X were supported a few months ago (Safari 5 and Safari 6 are just one year apart and the difference between them is huge).
+</p>
 
+<p>
 Making this game had taught me that:
+</p>
 <ul>
 	<li>There's no <tt>bind()</tt> on iOS 5</li>
 	<li>Safari doesn't create a new <tt>Touch</tt> object for each touch event</li>
@@ -541,4 +647,6 @@ Making this game had taught me that:
 	<li>That functionality you never heard about probably won't be supported on outdated browsers</li>
 </ul>
 
+<p>
 If you have any question, please use the comments section below.
+</p>

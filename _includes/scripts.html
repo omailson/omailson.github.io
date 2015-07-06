@@ -4,9 +4,11 @@
 <script src="{{ '/js/respond.min.js' | prepend: site.baseurl }}"></script>
 <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.9/jquery.validate.min.js"></script>
 <script src="{{ '/js/script.js' | prepend: site.baseurl }}"></script>
+{% if page.syntaxhighlighter %}
 <script type="text/javascript">
   SyntaxHighlighter.defaults['gutter'] = false;
 	SyntaxHighlighter.defaults['pad-line-numbers'] = false;
 	SyntaxHighlighter.defaults['toolbar'] = false;
   SyntaxHighlighter.all();
 </script>
+{% endif %}

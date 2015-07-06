@@ -9,6 +9,7 @@
 	<link rel="stylesheet" href="{{ '/css/font-awesome.css' | prepend: site.baseurl }}">
 	<link rel="stylesheet" href="{{ '/css/style.css' | prepend: site.baseurl }}">
 
+	{% if page.syntaxhighlighter %}
 	<!-- Only for simple pong game post -->
 	<script src="{{ '/syntaxhighlighter/js/shCore.js' | prepend: site.baseurl }}"></script>
 	<script src="{{ '/syntaxhighlighter/js/shBrushXml.js' | prepend: site.baseurl }}"></script>
@@ -17,6 +18,8 @@
 	<link rel="stylesheet" href="{{ '/syntaxhighlighter/css/shCore.css' | prepend: site.baseurl }}">
 	<link rel="stylesheet" href="{{ '/syntaxhighlighter/css/shThemeDefault.css' | prepend: site.baseurl }}">
 	<!-- // End syntaxhighlighter -->
+	{% comment %} I know it's the worst but I'm not rewriting all code snippets to use Pygments	{% endcomment %}
+	{% endif %}
 
 	<!--[if lt IE 9]>
 		<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>

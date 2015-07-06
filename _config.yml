@@ -1,2 +1,11 @@
 title: blog.mailson.org
 timezone: America/Recife
+permalink: /:year/:month/:title.html
+
+defaults:
+  -
+    scope:
+      path: ""
+      type: "posts"
+    values:
+      layout: "post"

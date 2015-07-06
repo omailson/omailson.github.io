@@ -1,12 +1,12 @@
 // Twitter Widget
 $(".tweet").tweet({
-    username: "envato", 
+    username: "envato",
     // Change your Twitter username here
     join_text: "auto",
     avatar_size: 0,
     count: 2,
     template: "{text} {time}",
-    auto_join_text_default: "", 
+    auto_join_text_default: "",
     auto_join_text_ed: "",
     auto_join_text_ing: "",
     auto_join_text_reply: "",
@@ -34,17 +34,3 @@ $('.search > .icon-search').click(function(){
 
 // Responsive videos
  $(".post_video").fitVids();
-
-// Contact form validation
-$("#contact_form").validate();
-        
-setTimeout(function() {
-    $("#contact_form").submit(function(e){
-        e.preventDefault();
-        if ( !$('input, textarea').hasClass('error') ) {
-            $('#contact #contact_form').slideUp(250);
-            $('#contact .message').slideDown(250);
-            $.post('js/send.php', $('#contact_form').serialize());
-        } else { return false; }
-    });
-},500);

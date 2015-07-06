@@ -9,9 +9,16 @@ layout: default
     {{ page.content }}
 
   <div class="metadata">
-    <span><i class="icon-pencil"></i><a href="archive.html">Mailson</a></span>
-    <span><i class="icon-time"></i><a href="archive.html">Date</a></span>
-    <span><i class="icon-list"></i><a href="archive.html">Tags/Category</a></span>
+    {% if page.categories != empty or page.tags != empty %}
+    <span><i class="icon-list"></i>
+      {% for category in page.categories %}
+        <span class="category">{{ category }}</span>
+      {% endfor %}
+      {% for tag in page.tags %}
+        <span class="category">{{ tag }}</span>
+      {% endfor %}
+    </span>
+    {% endif %}
   </div>
 
   <div class="comments">

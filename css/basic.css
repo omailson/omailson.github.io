@@ -551,6 +551,12 @@ Metadata
     margin-right: 20px;
 }
 
+.metadata span.category {
+  display: inline;
+  margin-right: 20px;
+  font-size: 90%;
+}
+
 
 /* --------------------------------------------------------------
 Comments

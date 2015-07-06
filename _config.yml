@@ -1,4 +1,5 @@
 title: blog.mailson.org
+url: /
 timezone: America/Recife
 permalink: /:year/:month/:title.html
 excerpt_separator: <!--more-->

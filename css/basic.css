@@ -254,6 +254,14 @@ strong  { font-weight: bold;}
 .center { text-align: center;}
 .highlight { background: #ff6644; padding: 0 5px; color:  #fff; }
 
+tt, code, kbd {
+  background: #ff6644;
+  color:  #fff;
+  padding: 0 5px;
+
+  font-family: monospace;
+}
+
 
 /* --------------------------------------------------------------
 Buttons

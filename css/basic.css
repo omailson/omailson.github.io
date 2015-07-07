@@ -718,7 +718,7 @@ footer h4, footer h5, footer h6 {
 }
 
 /* Social buttons */
-button.facebook, button.twitter, button.linkedin, button.google_plus, button.pinterest {
+button.facebook, button.twitter, button.linkedin, button.google_plus, button.pinterest, button.github {
     height: 40px;
     width: 40px;
     padding: 13px;
@@ -763,6 +763,14 @@ button.pinterest {
 
 button.pinterest:hover {
     background: #970b18;
+}
+
+button.github {
+  background: #666;
+}
+
+button.github:hover {
+  background: #444;
 }
 
 

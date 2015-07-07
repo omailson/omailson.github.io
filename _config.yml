@@ -5,6 +5,11 @@ timezone: America/Recife
 permalink: /:year/:month/:title.html
 excerpt_separator: <!--more-->
 
+facebook_username: omailson
+twitter_username: omailson
+linkedin_username: mailson
+github_username: omailson
+
 defaults:
   -
     scope:

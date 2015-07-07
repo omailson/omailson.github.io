@@ -529,6 +529,18 @@ section.quote:hover .author {
     color: #c93c1d;
 }
 
+section a {
+  text-decoration: underline;
+}
+
+section a:hover {
+  text-decoration: none;
+}
+
+section h4 a {
+  text-decoration: none;
+}
+
 /* Blockquotes */
 blockquote {
     width: 100%;

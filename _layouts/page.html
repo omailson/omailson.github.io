@@ -1,0 +1,15 @@
+---
+layout: default
+---
+<section>
+  <div class="eight columns">
+    <h4 class="post_title"><a href="{{ page.url | prepend: site.baseurl | prepend: site.url }}">{{ page.title }}</a></h4>
+    {% if page.description %}
+    <p class="post_intro">{{ page.description }}</p>
+    {% endif %}
+
+    {{ content }}
+
+  </div>
+  <br class="clear" />
+</section>

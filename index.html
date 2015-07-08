@@ -12,7 +12,7 @@ layout: default
 		{% capture content_words %}{{ post.content | number_of_words }}{% endcapture %}
     {% capture excerpt_words %}{{ post.excerpt | number_of_words }}{% endcapture %}
     {% if content_words != excerpt_words %}
-		<a href="{{ post.url | prepend: site.baseurl }}"><button class="float_right">READ MORE</button></a>
+		<a href="{{ post.url | prepend: site.baseurl }}#read-more"><button class="float_right">READ MORE</button></a>
 		{% endif %}
 
 	</div>

@@ -3,7 +3,7 @@ url: ""
 baseurl: ""
 timezone: America/Recife
 permalink: /:year/:month/:title.html
-excerpt_separator: <!--more-->
+excerpt_separator: "\n\n+++\n\n"
 
 facebook_username: omailson
 twitter_username: omailson

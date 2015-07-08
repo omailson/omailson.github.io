@@ -1,0 +1,31 @@
+{% if page.title %}
+  {% assign page_type = "article" %}
+{% else %}
+  {% assign page_type = "website" %}
+{% endif %}
+
+<meta property="og:site_name" content="{{ site.title }}" />
+{% if site.facebook_appid and site.facebook_appid != empty %}
+  {% comment %} Used by Facebook Domain Insights {% endcomment %}
+  <meta property="fb:app_id" content="{{ site.facebook_appid }}" />
+{% endif %}
+{% if page_type == "article" %}
+  <meta property="og:url" content="{{ page.url | prepend: site.baseurl | prepend: site.url }}" />
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="{{ page.title }}" />
+  {% if page.description %}
+    <meta property="og:description" content="{{ page.description }}" />
+  {% else %}
+    <meta property="og:description" content="{{ page.excerpt | strip_html | strip_newlines | truncate:200,'&hellip;' }}" />
+  {% endif %}
+  {% if page.image %}
+    <meta property="og:image" content="{{ page.image }}" />
+  {% endif %}
+{% else %}
+  <meta property="og:url" content="{{ site.url }}" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="{{ site.title }}" />
+  {% if site.description %}
+    <meta property="og:description" content="{{ site.description }}" />
+  {% endif %}
+{% endif %}

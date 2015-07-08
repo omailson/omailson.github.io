@@ -2,11 +2,11 @@ header .logo a {
     color: #AAA28D;
 }
 
-section ul {
+article ul {
     margin-left: 30px;
     margin-bottom: 30px;
 }
 
-section ul li {
+article ul li {
     list-style: circle;
 }

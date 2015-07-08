@@ -413,7 +413,7 @@ header nav ul li.search .icon-remove.active {
 /* --------------------------------------------------------------
 Posts
 -------------------------------------------------------------- */
-section {
+article {
     display: block;
     position: relative;
     background: #fff;
@@ -448,7 +448,7 @@ section {
     margin-bottom: -10px;
 }
 
-section .post_date {
+article .post_date {
     position: absolute;
     top: 80px;
     right: 80px;
@@ -464,16 +464,16 @@ section .post_date {
     transition:color .25s ease-in-out;
 }
 
-section .post_date:hover {
+article .post_date:hover {
     color: #ff6644;
 }
 
-section .post_title {
+article .post_title {
     margin-bottom: 30px;
     max-width: 80%;
 }
 
-section .post_intro {
+article .post_intro {
     color: #aaa;
     font-size: 20px;
     letter-spacing: 1px;
@@ -481,12 +481,12 @@ section .post_intro {
     border-bottom: 1px solid #ddd;
 }
 
-section button {
+article button {
     margin: 0;
 }
 
 /* Post Types */
-section.quote {
+article.quote {
     background: #f6f4ee;
     padding: 80px 80px 30px 200px;
     -webkit-transition:all .25s ease-in-out;
@@ -495,7 +495,7 @@ section.quote {
     transition:all .25s ease-in-out;
 }
 
-section.quote p {
+article.quote p {
     font-size: 24px;
     line-height: 48px;
     text-align: right;
@@ -505,7 +505,7 @@ section.quote p {
     transition:all .25s ease-in-out;
 }
 
-section.quote .author {
+article.quote .author {
     display: block;
     font-size: 16px;
     text-transform: uppercase;
@@ -516,28 +516,28 @@ section.quote .author {
     transition:all .25s ease-in-out;
 }
 
-section.quote:hover {
+article.quote:hover {
     background: #ff6644;
     box-shadow: 0 1px 2px rgba(0,0,0,.2), inset 0 -1px 3px #d83e1c;
 }
 
-section.quote:hover p {
+article.quote:hover p {
     color: #fff;
 }
 
-section.quote:hover .author {
+article.quote:hover .author {
     color: #c93c1d;
 }
 
-section a {
+article a {
   text-decoration: underline;
 }
 
-section a:hover {
+article a:hover {
   text-decoration: none;
 }
 
-section h4 a {
+article h4 a {
   text-decoration: none;
 }
 
@@ -828,13 +828,13 @@ Twitter
 Media queries
 -------------------------------------------------------------- */
 @media only screen and (max-width: 767px) {
-    header, section, section.quote {
+    header, article, article.quote {
         padding: 20px;
         width: auto;
         margin-bottom: 20px;
     }
 
-    section.quote {
+    article.quote {
         padding: 60px 20px 10px 60px;
     }
 
@@ -884,27 +884,27 @@ Media queries
         top: 10px;
     }
 
-    section, .post_image, .post_video {
+    article, .post_image, .post_video {
         margin-left: 20px;
         margin-right: 20px;
     }
 
-    section {
+    article {
         padding: 30px 0;
     }
 
-    section .post_date {
+    article .post_date {
         position: relative;
         top: -25px;
         left: 0;
     }
 
-    section.quote p {
+    article.quote p {
         font-size: 20px;
         line-height: 32px;
     }
 
-    section.quote p .author {
+    article.quote p .author {
         margin-top: 10px;
     }
 

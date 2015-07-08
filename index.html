@@ -3,7 +3,7 @@ layout: default
 ---
 
 {% for post in site.posts %}
-<section>
+<article>
 	<div class="eight columns">
 		<h4 class="post_title"><a href="{{ post.url | prepend: site.baseurl | prepend: site.url }}">{{ post.title }}</a></h4>
 		<a href="{{ post.url | prepend: site.baseurl | prepend: site.url }}" title="{{ post.date }}"><span class="post_date">{{ post.date | date: "%b %-d, %Y" }}</span></a>
@@ -17,7 +17,7 @@ layout: default
 
 	</div>
 	<br class="clear" />
-</section>
+</article>
 {% endfor %}
 
 {% include pagination.html %}

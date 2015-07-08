@@ -334,6 +334,10 @@ header .logo {
     float: left;
 }
 
+header h1.logo {
+  font-size: 24px;
+}
+
 header nav {
     float: right;
     margin-top: 3px;
@@ -473,6 +477,10 @@ article .post_title {
     max-width: 80%;
 }
 
+article h1.post_title, article h2.post_title {
+  font-size: 24px;
+}
+
 article .post_intro {
     color: #aaa;
     font-size: 20px;
@@ -537,7 +545,7 @@ article a:hover {
   text-decoration: none;
 }
 
-article h4 a {
+article h1.post_title a, article h2.post_title a {
   text-decoration: none;
 }
 

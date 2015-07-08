@@ -5,10 +5,10 @@ layout: default
 {% for post in site.posts %}
 <article>
 	<div class="eight columns">
-		<h4 class="post_title"><a href="{{ post.url | prepend: site.baseurl | prepend: site.url }}">{{ post.title }}</a></h4>
+		<h2 class="post_title"><a href="{{ post.url | prepend: site.baseurl | prepend: site.url }}">{{ post.title }}</a></h2>
 		<a href="{{ post.url | prepend: site.baseurl | prepend: site.url }}" title="{{ post.date }}"><span class="post_date">{{ post.date | date: "%b %-d, %Y" }}</span></a>
 
-		{{ post.excerpt }}
+		{{ post.excerpt | replace:"h5","h6" | replace:"h4","h5" | replace:"h3","h4" |  replace:"h2","h3" }}
 		{% capture content_words %}{{ post.content | number_of_words }}{% endcapture %}
     {% capture excerpt_words %}{{ post.excerpt | number_of_words }}{% endcapture %}
     {% if content_words != excerpt_words %}

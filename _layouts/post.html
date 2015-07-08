@@ -3,7 +3,7 @@ layout: default
 ---
 <article>
   <div class="eight columns">
-    <h4 class="post_title"><a href="{{ page.url | prepend: site.baseurl | prepend: site.url }}">{{ page.title }}</a></h4>
+    <h1 class="post_title"><a href="{{ page.url | prepend: site.baseurl | prepend: site.url }}">{{ page.title }}</a></h1>
     <a href="{{ page.url | prepend: site.baseurl | prepend: site.url }}" title="{{ page.date }}"><span class="post_date">{{ page.date | date: "%b %-d, %Y" }}</span></a>
 
     {{ content | replace: '+++','<hr id="read-more">' }}

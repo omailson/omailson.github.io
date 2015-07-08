@@ -1,14 +1,14 @@
 // Search popup
-$('.search > .icon-search').click(function(){
+$('.search > .fa-search').click(function(){
    	$('.search_popup').slideDown('', function() {});
- 	$('.search > .icon-search').toggleClass('active');
- 	$('.search > .icon-remove').toggleClass('active');
+   	$('.search > .fa-search').toggleClass('active');
+   	$('.search > .fa-remove').toggleClass('active');
  });
 
- $('.search > .icon-remove').click(function(){
+ $('.search > .fa-remove').click(function(){
    	$('.search_popup').slideUp('', function() {});
- 	$('.search > .icon-search').toggleClass('active');
- 	$('.search > .icon-remove').toggleClass('active');
+   	$('.search > .fa-search').toggleClass('active');
+   	$('.search > .fa-remove').toggleClass('active');
  });
 
 // Mobile menu

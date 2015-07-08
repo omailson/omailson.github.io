@@ -401,15 +401,15 @@ header .search_popup button {
     top: -1px;
 }
 
-header nav ul li.search .icon-search.active {
+header nav ul li.search .fa-search.active {
   display: none;
 }
 
-header nav ul li.search .icon-remove {
+header nav ul li.search .fa-remove {
   display: none;
 }
 
-header nav ul li.search .icon-remove.active {
+header nav ul li.search .fa-remove.active {
   display: inline-block;
 }
 

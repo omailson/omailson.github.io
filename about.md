@@ -9,4 +9,4 @@ My name is Mailson and I’m a 27 year old Software Engineer who is passionate a
 
 On this blog you’ll find mostly information about my programming life and related subjects.
 
-All my contact information can be found [below](#contact). You can also have a look on my [resume](http://mailson.org/cv.pdf).
+All my contact information can be found [below](#contact). You can also have a look at my [resume](http://mailson.org/cv.pdf).

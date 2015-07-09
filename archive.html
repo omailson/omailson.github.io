@@ -1,0 +1,31 @@
+---
+title: Archive
+layout: page
+---
+<div class="archives">
+  {% capture last_year %}{{ site.posts.last.date | date: "%Y" }}{% endcapture %}
+  {% assign year_section = 0 %}
+  {% assign year = 0 %}
+
+  {% for post in site.posts %}
+    {% capture year %}{{ post.date | date: "%Y" }}{% endcapture %}
+    {% if year != year_section %}
+      {% assign year_section = year %}
+      {% if forloop.index0 != 0 %}
+        {% comment %} <!-- Close previous year's list --> {% endcomment %}
+        </ul>
+      {% endif %}
+      <h5 class="styled">{{ year }}</h5><!-- XXX: h5? -->
+
+      {% comment %} <!-- Start a new year section --> {% endcomment %}
+      <ul class="{% if year != last_year %}styled_ul{% else %}styled_ul_last{% endif %}">
+    {% endif %}
+
+    <li><a href="{{ post.url | prepend: site.baseurl }}" title="{{ post.description }}">{{ post.title }}</a></li>
+
+    {% if forloop.last %}
+      {% comment %} <!-- Close last section's list --> {% endcomment %}
+      </ul>
+    {% endif %}
+  {% endfor %}
+</div>

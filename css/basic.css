@@ -656,7 +656,6 @@ Pagination
 Archive
 -------------------------------------------------------------- */
 .archives {
-    padding-top: 160px;
     padding-left: 5px;
 }
 
@@ -666,6 +665,11 @@ Archive
 
 .archives ul li {
     padding: 0 0 5px 0;
+    list-style-type: none;
+}
+
+.archives a {
+  text-decoration: none;
 }
 
 /* Styled H5 and UL (border and circles) */

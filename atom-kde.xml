@@ -1,0 +1,5 @@
+---
+layout: null
+---
+{% assign posts = site.categories['planet kde'] %}
+{% include atom.xml posts=posts %}

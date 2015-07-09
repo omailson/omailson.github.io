@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>{{ site.author }}</title>
+  <link href="{{ page.url | prepend: site.baseurl | prepend: site.url }}" rel="self"/>
+  <link href="{{ site.url | append: '/' | replace: '//','/' }}"/>
+  <updated>{{ site.time | date_to_xmlschema }}</updated>
+  <id>{{ site.url | append: '/' | replace: '//','/' }}</id>
+  <author>
+    <name>{{ site.author }}</name>
+    <uri>{{ '/about.html' | prepend: site.baseurl | prepend: site.url }}</uri>
+    {% if site.author_email %}<email>{{ site.author_email }}</email>{% endif %}
+  </author>
+  {% capture feed_limit %}{{ site.feed_limit }}{% endcapture %}
+  {% for post in include.posts limit:feed_limit %}
+  <entry>
+    <title>{{ post.title }}</title>
+    <link href="{{ post.url | prepend: site.baseurl | prepend: site.url }}"/>
+    <updated>{{ post.date | date_to_xmlschema }}</updated>
+    <id>{{ post.id | prepend: site.baseurl | prepend: site.url }}</id>
+    <content type="html">{{ post.content | remove: "<p>+++</p>" | remove: "+++" | xml_escape }}</content>
+    <author>
+      <name>{{ site.author }}</name>
+      <uri>{{ '/about.html' | prepend: site.baseurl | prepend: site.url }}</uri>
+    </author>
+  </entry>
+  {% endfor %}
+</feed>

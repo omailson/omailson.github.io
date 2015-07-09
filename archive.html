@@ -3,29 +3,71 @@ title: Archive
 layout: page
 ---
 <div class="archives">
-  {% capture last_year %}{{ site.posts.last.date | date: "%Y" }}{% endcapture %}
-  {% assign year_section = 0 %}
-  {% assign year = 0 %}
+  <div class="two-thirds column">
+    {% capture last_year %}{{ site.posts.last.date | date: "%Y" }}{% endcapture %}
+    {% assign year_section = 0 %}
+    {% assign year = 0 %}
 
-  {% for post in site.posts %}
-    {% capture year %}{{ post.date | date: "%Y" }}{% endcapture %}
-    {% if year != year_section %}
-      {% assign year_section = year %}
-      {% if forloop.index0 != 0 %}
-        {% comment %} <!-- Close previous year's list --> {% endcomment %}
+    {% for post in site.posts %}
+      {% capture year %}{{ post.date | date: "%Y" }}{% endcapture %}
+      {% if year != year_section %}
+        {% assign year_section = year %}
+        {% if forloop.index0 != 0 %}
+          {% comment %} <!-- Close previous year's list --> {% endcomment %}
+          </ul>
+        {% endif %}
+        <h5 class="styled">{{ year }}</h5><!-- XXX: h5? -->
+
+        {% comment %} <!-- Start a new year section --> {% endcomment %}
+        <ul class="{% if year != last_year %}styled_ul{% else %}styled_ul_last{% endif %}">
+      {% endif %}
+
+      <li><a href="{{ post.url | prepend: site.baseurl }}" title="{{ post.description }}">{{ post.title }}</a></li>
+
+      {% if forloop.last %}
+        {% comment %} <!-- Close last section's list --> {% endcomment %}
         </ul>
       {% endif %}
-      <h5 class="styled">{{ year }}</h5><!-- XXX: h5? -->
+    {% endfor %}
+  </div>
 
-      {% comment %} <!-- Start a new year section --> {% endcomment %}
-      <ul class="{% if year != last_year %}styled_ul{% else %}styled_ul_last{% endif %}">
-    {% endif %}
+  <div class="one-third column">
+    <h5><a href="#cat-ref">Categories</a></h5>
+    <ul>
+      {% for category in site.categories %}
+        <li><a href="#{{ category[0] | slugify }}-cat-ref">{{ category[0] | capitalize }}</a></li>
+      {% endfor %}
+    </ul>
 
-    <li><a href="{{ post.url | prepend: site.baseurl }}" title="{{ post.description }}">{{ post.title }}</a></li>
+    <h5><a href="#tag-ref">Tags</a></h5>
+    <ul>
+      {% for tag in site.tags %}
+        <li><a href="#{{ tag[0] | slugify }}-tag-ref">{{ tag[0] }}</a></li>
+      {% endfor %}
+    </ul>
+  </div>
 
-    {% if forloop.last %}
-      {% comment %} <!-- Close last section's list --> {% endcomment %}
-      </ul>
-    {% endif %}
+  <hr>
+
+  <h4 id="cat-ref">Posts by categories</h4>
+  {% for category in site.categories %}
+    <h5 id="{{ category[0] | slugify }}-cat-ref">{{ category[0] | capitalize }}</h5>
+    <ul>
+      {% for post in category[1] %}
+        <li><a href="{{ post.url | prepend: site.baseurl }}">{{ post.title }}</a></li>
+      {% endfor %}
+    </ul>
+  {% endfor %}
+
+  <hr>
+
+  <h4 id="tag-ref">Posts by tags</h4>
+  {% for tag in site.tags %}
+    <h5 id="{{ tag[0] }}-tag-ref">{{ tag[0] }}</h5>
+    <ul>
+      {% for post in tag[1] %}
+        <li><a href="{{ post.url | prepend: site.baseurl }}">{{ post.title }}</a></li>
+      {% endfor %}
+    </ul>
   {% endfor %}
 </div>

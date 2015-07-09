@@ -1,8 +1,11 @@
+# Blog configuration
 title: blog.mailson.org
 author: "Mailson Menezes"
 url: ""
 baseurl: ""
 timezone: America/Recife
+
+# Posts configuration
 permalink: /:year/:month/:title.html
 excerpt_separator: "\n\n+++\n\n"
 paginate: 5
@@ -10,6 +13,7 @@ paginate_path: /page:num/
 
 feed_limit: 10
 
+# Social configuration
 facebook_username: omailson
 twitter_username: omailson
 linkedin_username: mailson

@@ -4,8 +4,8 @@
   <nav>
     <ul>
       <li><a href="{% if site.url != empty %}{{ site.url }}{% else %}/{% endif %}">HOME</a></li>
-      <li><a href="about.html">ABOUT</a></li>
-      <li><a href="archive.html">ARCHIVE</a></li>
+      <li><a href="{{ '/about.html' | prepend: site.baseurl }}">ABOUT</a></li>
+      <li><a href="{{ '/archive.html' | prepend: site.baseurl }}">ARCHIVE</a></li>
       <li><a href="#contact">CONTACT</a></li>
       {% comment %} Hide search while it's not working
       <li class="search"><i class="fa fa-search"></i><i class="fa fa-remove"></i></li>

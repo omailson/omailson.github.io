@@ -13,3 +13,7 @@ layout: default
   </div>
   <br class="clear" />
 </article>
+
+{% if page.comments %}
+  {% include comments.html %}
+{% endif %}

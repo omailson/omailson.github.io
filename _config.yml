@@ -5,6 +5,9 @@ url: ""
 baseurl: ""
 timezone: America/Recife
 
+comments: true
+disqus_shortname: ""
+
 # Posts configuration
 permalink: /:year/:month/:title.html
 excerpt_separator: "\n\n+++\n\n"

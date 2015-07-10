@@ -1,25 +1,9 @@
-<div class="comments">
-  <h5>Two comments</h5>
-    <div class="comment">
-      <div class="avatar"><img src="/img/avatar.png" alt="Avatar"></div>
-      <h5>Name</h5>
-      <span class="comment-date">December 26, 2012 on 8:17 PM</span>
-      <p>Comment</p>
+{% if site.comments and page.comments != false %}
+  <section class="comments">
+    <div class="eight columns">
+      <h2 id="comments">Comments</h2>
+      {% include disqus.html %}
     </div>
-    <div class="comment reply">
-      <div class="avatar"><img src="/img/avatar.png" alt="Avatar"></div>
-      <h5>Name</h5>
-      <span class="comment-date">December 26, 2012 on 9:22 PM</span>
-      <p>Comment reply</p>
-    </div>
-
-  <h5>Leave a comment</h5>
-    <form class="comment-form" method="post" action="">
-    <h6>YOUR NAME</h6>
-    <input type="text">
-    <h6>YOUR COMMENT</h6>
-    <textarea></textarea>
-    <button type="submit">Submit</button>
-    </form>
     <br class="clear" />
-</div>
+  </section>
+{% endif %}

@@ -421,7 +421,7 @@ header nav ul li.search .fa-remove.active {
 /* --------------------------------------------------------------
 Posts
 -------------------------------------------------------------- */
-article {
+article, section {
     display: block;
     position: relative;
     background: #fff;
@@ -632,6 +632,10 @@ Comments
 -------------------------------------------------------------- */
 .comments h5 {
     margin: 60px 0 30px 0;
+}
+
+section.comments h2 {
+  font-size: 24px;
 }
 
 .comment .avatar {
@@ -896,7 +900,7 @@ Twitter
 Media queries
 -------------------------------------------------------------- */
 @media only screen and (max-width: 767px) {
-    header, article, article.quote {
+    header, article, section, article.quote {
         padding: 20px;
         width: auto;
         margin-bottom: 20px;
@@ -952,12 +956,12 @@ Media queries
         top: 10px;
     }
 
-    article, .post_image, .post_video {
+    article, section, .post_image, .post_video {
         margin-left: 20px;
         margin-right: 20px;
     }
 
-    article {
+    article, section {
         padding: 30px 0;
     }
 

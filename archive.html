@@ -63,7 +63,7 @@ layout: page
 
   <h4 id="tag-ref">Posts by tags</h4>
   {% for tag in site.tags %}
-    <h5 id="{{ tag[0] }}-tag-ref">{{ tag[0] }}</h5>
+    <h5 id="{{ tag[0] | slugify }}-tag-ref">{{ tag[0] }}</h5>
     <ul>
       {% for post in tag[1] %}
         <li><a href="{{ post.url | prepend: site.baseurl }}">{{ post.title }}</a></li>

@@ -594,7 +594,12 @@ Footnotes
 Metadata
 -------------------------------------------------------------- */
 .metadata {
-    padding: 20px 0;
+    float: left;
+}
+
+.fb-like {
+    float: right;
+    margin-bottom: 30px;
 }
 
 .metadata span {

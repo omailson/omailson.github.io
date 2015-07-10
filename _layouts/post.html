@@ -16,10 +16,10 @@ layout: default
     {% if page.categories != empty or page.tags != empty %}
     <span><i class="fa fa-list"></i>
       {% for category in page.categories %}
-        <span class="category">{{ category }}</span>
+        <span class="category"><a href="{{ category | slugify | append: '-cat-ref' | prepend: '/archive.html#' | prepend: site.baseurl }}">{{ category }}</a></span>
       {% endfor %}
       {% for tag in page.tags %}
-        <span class="category">{{ tag }}</span>
+        <span class="category"><a href="{{ tag | slugify | append: '-tag-ref' | prepend: '/archive.html#' | prepend: site.baseurl }}">{{ tag }}</a></span>
       {% endfor %}
     </span>
     {% endif %}

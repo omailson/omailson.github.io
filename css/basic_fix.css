@@ -10,3 +10,11 @@ article ul {
 article ul li {
     list-style: circle;
 }
+
+article ol {
+  margin-left: 30px;
+}
+
+article ol li {
+  list-style: decimal;
+}

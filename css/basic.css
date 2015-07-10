@@ -139,6 +139,10 @@ input, textarea {
         background: #f2f2f2;
     }
 
+sup {
+  vertical-align: super;
+  font-size: smaller;
+}
 
 /* --------------------------------------------------------------
 Grid
@@ -545,6 +549,10 @@ article a:hover {
   text-decoration: none;
 }
 
+article sup a, .reversefootnote {
+  text-decoration: none;
+}
+
 article h1.post_title a, article h2.post_title a {
   text-decoration: none;
 }
@@ -560,6 +568,25 @@ blockquote {
     -webkit-box-sizing: border-box;     /* Safari/Chrome, other WebKit */
        -moz-box-sizing: border-box;     /* Firefox, other Gecko */
             box-sizing: border-box;     /* Opera/IE 8+ */
+}
+
+
+/* --------------------------------------------------------------
+Footnotes
+-------------------------------------------------------------- */
+.footnotes {
+  margin-top: 60px;
+  margin-bottom: 30px;
+  color: #999;
+  font-size: 90%;
+}
+
+.footnotes p {
+  margin-bottom: 0;
+}
+
+.footnotes a {
+  text-decoration: none;
 }
 
 

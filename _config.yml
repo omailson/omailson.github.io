@@ -1,14 +1,14 @@
 # Blog configuration
 title: blog.mailson.org
 author: "Mailson Menezes"
-url: ""
+url: "http://blog.mailson.org"
 baseurl: ""
 timezone: America/Recife
 
-google_analytics_id: ""
+google_analytics_id: "UA-31218644-1"
 
 comments: true
-disqus_shortname: ""
+disqus_shortname: "blogmailsonorg"
 
 # Posts configuration
 permalink: /:year/:month/:title.html
@@ -24,7 +24,7 @@ twitter_username: omailson
 linkedin_username: mailson
 github_username: omailson
 
-facebook_appid: ""
+facebook_appid: "784598104972753"
 
 defaults:
   -

@@ -5,6 +5,8 @@ url: ""
 baseurl: ""
 timezone: America/Recife
 
+google_analytics_id: ""
+
 comments: true
 disqus_shortname: ""
 
